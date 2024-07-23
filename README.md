@@ -1,6 +1,7 @@
 # Vanilla NLP Model Comparison
 
-This project compares different NLP models (RNN, Transformer, BERT, and GPT) on the IMDb movie reviews dataset.
+This project aims to compares among NLP models; from the traditional one(RNN) to new gen babies(Transformer, Bert, and GPT) 
+on the IMDb movie reviews dataset.
 I tried my best to import less libraries and make the models lightweight , so that they are runnable not only on GPU devices but,  CPU only environments. 
 
 ## Setup
