@@ -51,3 +51,4 @@ def train_model(model_name, model, train_loader, test_loader, epochs=3):
         test_loss, accuracy = evaluate(model, test_loader, criterion, device)
         print(f"Epoch {epoch+1}/{epochs}")
         print(f"{model_name} - Train Loss: {train_loss:.4f}, Test Loss: {test_loss:.4f}, Accuracy: {accuracy:.4f}")
+

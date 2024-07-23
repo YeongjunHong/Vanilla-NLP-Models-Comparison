@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from transformers import BertModel, GPT2Model
 import math
+from sklearn.linear_model import LogisticRegression
 
 class RNNModel(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim):
