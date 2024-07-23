@@ -19,7 +19,7 @@ I tried my best to import less libraries and make the models lightweight , so th
 ## Usage
 
 1. **Run main.py:**
-  ```bash
+    ```bash
     python main.py
     ```
 
