@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from transformers import BertModel, GPT2Model
+import math
 
 class RNNModel(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim):
@@ -18,14 +19,28 @@ class TransformerModel(nn.Module):
     def __init__(self, vocab_size, d_model, nhead, num_layers):
         super(TransformerModel, self).__init__()
         self.embedding = nn.Embedding(vocab_size, d_model)
-        self.pos_encoder = nn.TransformerEncoderLayer(d_model, nhead)
-        self.transformer_encoder = nn.TransformerEncoder(self.pos_encoder, num_layers)
+        encoder_layers = nn.TransformerEncoderLayer(d_model, nhead, dim_feedforward=2048, dropout=0.1)
+        self.transformer_encoder = nn.TransformerEncoder(encoder_layers, num_layers)
+        self.d_model = d_model
         self.fc = nn.Linear(d_model, 2)
-    
+
     def forward(self, x, mask):
-        embedded = self.embedding(x)
-        output = self.transformer_encoder(embedded, src_key_padding_mask=~mask.bool())
-        return self.fc(output.mean(dim=1))
+        # x shape: [batch_size, seq_len]
+        # mask shape: [batch_size, seq_len]
+        
+        x = self.embedding(x) * math.sqrt(self.d_model)
+        x = x.transpose(0, 1)  # Convert to [seq_len, batch_size, embedding_dim]
+        
+        # Create a boolean mask where True values are positions to be masked
+        src_key_padding_mask = (mask == 0).to(x.device)
+        
+        output = self.transformer_encoder(x, src_key_padding_mask=src_key_padding_mask)
+        output = output.transpose(0, 1)  # Convert back to [batch_size, seq_len, embedding_dim]
+        
+        # Use mean pooling
+        output = output.mean(dim=1)
+        
+        return self.fc(output)
 
 class BERTModel(nn.Module):
     def __init__(self):

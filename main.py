@@ -2,7 +2,9 @@ from data_loading import load_and_preprocess_data
 from models import RNNModel, TransformerModel, BERTModel, GPTModel
 from training import train_model
 import os
+import warnings
 os.environ['OMP_NUM_THREADS'] = '1'
+warnings.filterwarnings('ignore')
 
 def main():
     # Load data
