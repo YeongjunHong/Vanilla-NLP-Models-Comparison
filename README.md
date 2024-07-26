@@ -4,6 +4,12 @@ This project aims to compares among NLP models; from the traditional one(RNN) to
 on the IMDb movie reviews dataset.
 I tried my best to import less libraries and make the models lightweight , so that they are runnable not only on GPU devices but,  CPU only environments. 
 
+
+## Further update will be regarding as below
+    1. Model Performance Comparison Across Different Embedding Types
+    2. Comparison of Model Performance with and without Pre-Trained Embeddings 
+
+
 ## Setup
 
 1. **Clone the repository:**
